@@ -1,5 +1,19 @@
 # :: 원티드 프리온보딩 챌린지 프론트엔드 코스 사전과제
 
+# 실행 방법
+## API 실행
+```bash
+$ cd backend
+$ yarn
+$ yarn start # http://localhost:8080
+```
+## 프로그램 실행
+```bash
+$ cd frontend
+$ npm install
+$ npm start
+```
+
 ## Assignment 1 - Login / SignUp
 
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
