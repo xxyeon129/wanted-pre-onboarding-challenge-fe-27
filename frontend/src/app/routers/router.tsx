@@ -8,7 +8,7 @@ import SigninPage from 'pages/auth/SigninPage';
 import ErrorPage from 'pages/error/ErrorPage';
 import NotFoundPage from 'pages/error/NotFoundPage';
 // layout
-import { Layout } from 'widgets';
+import { Layout } from 'pages/layout/Layout';
 
 const PATH_URL = {
   AUTH: 'auth',
