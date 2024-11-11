@@ -1,9 +1,8 @@
+import { RouterProvider } from 'react-router-dom';
+import { AppRouter } from 'app/routers/router';
+
 function App() {
-  return (
-    <>
-      <h1>Wanted pre-onboarding challenge</h1>
-    </>
-  )
+  return <RouterProvider router={AppRouter} />;
 }
 
-export default App
+export default App;
