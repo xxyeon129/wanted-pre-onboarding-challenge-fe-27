@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import TodoListPage from 'pages/todo/TodoListPage';
 // pages/auth
 import LoginPage from 'pages/auth/LoginPage';
-import SigninPage from 'pages/auth/SigninPage';
+import SignupPage from 'pages/auth/SignupPage';
 // pages/error
 import ErrorPage from 'pages/error/ErrorPage';
 import NotFoundPage from 'pages/error/NotFoundPage';
@@ -13,7 +13,7 @@ import { Layout } from 'pages/layout/Layout';
 const PATH_URL = {
   AUTH: 'auth',
   LOGIN: 'login',
-  SIGN_IN: 'signin',
+  SIGN_UP: 'signup',
 };
 
 const authRouter = [
@@ -22,8 +22,8 @@ const authRouter = [
     element: <LoginPage />,
   },
   {
-    path: PATH_URL.SIGN_IN,
-    element: <SigninPage />,
+    path: PATH_URL.SIGN_UP,
+    element: <SignupPage />,
   },
 ];
 
