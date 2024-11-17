@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { apiInstance } from 'shared/user/api/apiInstance';
 
 const signupSchema = z
   .object({
@@ -29,14 +31,34 @@ export default function SignupPage() {
     resolver: zodResolver(signupSchema),
   });
 
-  const onSubmit = (data: TAuthForm) => {
-    // TODO: signup API request
+  const fetchSignup = async ({ email, password }: { email: string; password: string }) => {
+    const { data } = await apiInstance.post('/users/create', {
+      email,
+      password,
+    });
+
+    return data;
+  };
+
+  const mutation = useMutation({
+    mutationFn: fetchSignup,
+    onSuccess: (data: { message: string; token: string }) => {
+      alert(data.message);
+      localStorage.setItem('token', data.token);
+    },
+    onError: (error) => {
+      console.log('signup mutation error', error);
+    },
+  });
+
+  const handleSignup = (data: TAuthForm) => {
+    mutation.mutate(data);
   };
 
   return (
     <section>
       <h1>SIGN UP</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleSignup)}>
         <div>
           <label>Email</label>
           <input type='email' {...register('email')} placeholder='user@gmail.com' />
