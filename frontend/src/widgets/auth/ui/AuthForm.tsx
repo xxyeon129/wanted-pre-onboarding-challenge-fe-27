@@ -1,32 +1,43 @@
-import { ZodEffects, ZodObject, ZodTypeAny } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { ReactNode } from 'react';
 // components
 import { AuthInput } from './AuthInput';
-// validation
-import { TAuthForm, useAuthMutation } from 'entities/auth';
+// hooks
+import { signupSchema, useAuthForm } from 'entities/auth';
 
-interface IAuthFormProps {
-  schema: ZodEffects<ZodObject<{ [key: string]: ZodTypeAny }>>;
-  children: ReactNode;
-}
-
-export function AuthForm({ schema, children }: IAuthFormProps) {
-  const { handleSubmit } = useForm<TAuthForm>({
-    resolver: zodResolver(schema),
-  });
-
-  const handleAuth = (data: TAuthForm) => {
-    const authMutation = useAuthMutation();
-    authMutation.mutate(data);
-  };
+export function AuthForm() {
+  const { register, handleSubmit, errors, isDirty, isValid, handleFormSubmit } = useAuthForm(signupSchema);
 
   return (
-    <form onSubmit={handleSubmit(handleAuth)}>
-      <AuthInput label='Email' type='email' placeholder='user@gmail.com' />
-      <AuthInput label='Password' type='password' placeholder='Password' />
-      {children}
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <AuthInput
+        label='Email'
+        type='email'
+        placeholder='user@gmail.com'
+        registerName='email'
+        register={register}
+        errors={errors}
+      />
+
+      <AuthInput
+        label='Password'
+        type='password'
+        placeholder='영문, 숫자, 특수문자 조합 8~15자리 입력'
+        registerName='password'
+        register={register}
+        errors={errors}
+      />
+
+      <AuthInput
+        label='Confirm Password'
+        type='password'
+        placeholder='Confirm Password'
+        registerName='confirmPassword'
+        register={register}
+        errors={errors}
+      />
+
+      <button type='submit' disabled={!isDirty || !isValid}>
+        Sign up
+      </button>
     </form>
   );
 }
